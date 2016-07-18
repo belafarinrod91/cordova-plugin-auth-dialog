@@ -37,7 +37,7 @@
     [NSURLConnection  connectionWithRequest:request delegate:self];
 }
 
-- (void)suppressUserCredentialsDialog:(CDVInvokedUrlCommand)*command 
+- (void)suppressUserCredentialsDialog:(CDVInvokedUrlCommand*)command
 {
     self.showRequestUserCredentialsDialog = false;
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
@@ -106,7 +106,7 @@ CredentialsViewController * credentialsViewController;
                        forAuthenticationChallenge:challenge];
         } else { // request credentials
 
-            if(showRequestUserCredentialsDialog)
+            if(self.showRequestUserCredentialsDialog)
             {
                 credentialsViewController = [[CredentialsViewController alloc] init];
                 
@@ -128,7 +128,7 @@ CredentialsViewController * credentialsViewController;
             } 
             else 
             {
-                [[challenge sender] cancelAuthenticationChallenge:challenge]
+                [[challenge sender] cancelAuthenticationChallenge:challenge];
             }
 
             
