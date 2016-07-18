@@ -7,6 +7,11 @@
 
 @implementation AuthenticationDialog {}
 
+- (void)pluginInitialize
+{
+    self.showRequestUserCredentialsDialog = true;
+}
+
 - (void)authenticate:(CDVInvokedUrlCommand*)command
 {
     self.uri = [command.arguments objectAtIndex:0];
@@ -30,6 +35,13 @@
     [request setHTTPMethod:@"GET"];
 
     [NSURLConnection  connectionWithRequest:request delegate:self];
+}
+
+- (void)suppressUserCredentialsDialog:(CDVInvokedUrlCommand)*command 
+{
+    self.showRequestUserCredentialsDialog = false;
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackId];
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
@@ -93,9 +105,12 @@ CredentialsViewController * credentialsViewController;
                                                                       persistence:NSURLCredentialPersistencePermanent]
                        forAuthenticationChallenge:challenge];
         } else { // request credentials
-            credentialsViewController = [[CredentialsViewController alloc] init];
+
+            if(showRequestUserCredentialsDialog)
+            {
+                credentialsViewController = [[CredentialsViewController alloc] init];
                 
-            credentialsViewController.onResult = ^(NSString * userName, NSString* password, BOOL isCancelled)  {
+                credentialsViewController.onResult = ^(NSString * userName, NSString* password, BOOL isCancelled)  {
                     
                 credentialsViewController = NULL;
                     
@@ -109,7 +124,14 @@ CredentialsViewController * credentialsViewController;
                 }
             };
                 
-            [credentialsViewController requestUserCredentials:self.uri];
+                [credentialsViewController requestUserCredentials:self.uri];
+            } 
+            else 
+            {
+                [[challenge sender] cancelAuthenticationChallenge:challenge]
+            }
+
+            
         }
     }
     else

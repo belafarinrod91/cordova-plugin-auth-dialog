@@ -12,10 +12,12 @@
 @property NSString *userName;
 @property NSString *password;
 @property Boolean allowBypassAuth;
+@property Boolean showRequestUserCredentialsDialog;
 
 @property NSString *callbackId;
 
 - (void)authenticate:(CDVInvokedUrlCommand*)command;
+- (void)suppressUserCredentialsDialog:(CDVInvokedUrlCommand)*command;
 
 @end
 
