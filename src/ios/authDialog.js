@@ -59,7 +59,7 @@ authDialog.authenticate = function (uri, /*optional*/ successCallback, /*optiona
 };
 
 authDialog.suppressRequestUserCredentialsDialog = function(successCallback, errorCallback){
-    cordova.exec(successCallback, errorCallback, 'AuthDialog', 'suppressUserCredentialsDialog', null);
+    cordova.exec(successCallback, errorCallback, 'AuthDialog', 'suppressRequestUserCredentialsDialog', null);
 }
 
 module.exports = authDialog;

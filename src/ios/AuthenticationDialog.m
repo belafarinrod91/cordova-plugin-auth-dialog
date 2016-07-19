@@ -37,7 +37,7 @@
     [NSURLConnection  connectionWithRequest:request delegate:self];
 }
 
-- (void)suppressUserCredentialsDialog:(CDVInvokedUrlCommand*)command
+- (void)suppressRequestUserCredentialsDialog:(CDVInvokedUrlCommand*)command
 {
     self.showRequestUserCredentialsDialog = false;
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];

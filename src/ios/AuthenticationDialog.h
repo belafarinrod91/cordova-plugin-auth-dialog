@@ -17,7 +17,7 @@
 @property NSString *callbackId;
 
 - (void)authenticate:(CDVInvokedUrlCommand*)command;
-- (void)suppressUserCredentialsDialog:(CDVInvokedUrlCommand*)command;
+- (void)suppressRequestUserCredentialsDialog:(CDVInvokedUrlCommand*)command;
 
 @end
 
